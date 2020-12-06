@@ -1,0 +1,27 @@
+{
+  "name": "gtfs-realtime-feed",
+  "version": "0.1.0",
+  "description": "App which retrieves gtfs realtime data from Transport for Ireland GTFS-R API",
+  "main": "src/index.js",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.3",
+    "axios": "^0.20.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.1",
+    "gtfs-realtime-bindings": "0.0.6",
+    "moment": "^2.29.1",
+    "mssql": "^6.2.3",
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.1"
+  },
+  "scripts": {
+    "test": "nyc mocha src/**/*.test.js"
+  },
+  "author": "Matthew O'Leary",
+  "license": "ISC"
+}

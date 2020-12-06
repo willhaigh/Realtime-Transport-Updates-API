@@ -1,0 +1,8 @@
+node_modules
+google_transit_dublinbus
+docker-test-db
+.nyc_output
+GTFSR_Outputs
+unused_files
+.env
+package-lock.json
