@@ -10,7 +10,7 @@ module.exports.register = async server => {
         method: 'GET',
         path: '/',
         handler: async ( request, h ) => {
-            return 'On Time API server running'
+            return 'API server running'
         }
     })
 }
