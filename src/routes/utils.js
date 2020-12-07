@@ -56,9 +56,9 @@ const checkIfNightServices = async timeStamp => {
     }
 }
 
-// If night services, we need to make a query using wrapped times
+// If night services (between 00:00 and 05:59:59), we need to make a query using wrapped times
 const getWrappedTimestamp = async timestamp => {
-    if (timestamp >= 0 && timestamp <= 21599) {
+    if (timestamp <= 21599) {
         timestamp = timestamp + (24 * 3600)
     }
     return timestamp

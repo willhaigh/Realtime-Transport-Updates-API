@@ -67,7 +67,7 @@ module.exports.register = async server => {
                 // If true, we get wrapped times and call a getTripsAtStopIdWithNightServices query instead
                 // If false call getTripsAtStopId as normal
                 if (await utils.checkIfNightServices(currentTimestampPlusOneHour)) {
-                    query = { query_timestamp: utils.getWrappedTimestamp(currentTimestamp) }
+                    query = { query_timestamp: await utils.getWrappedTimestamp(currentTimestamp) }
                     return await getTripsWithMidnightServices({ db, stopId, realtime, query, currentTimestampMinusNumMinutes, currentTimestampPlusOneHour, scheduleDate, scheduleDay })
                 } else {
                     query = { query_timestamp: currentTimestamp }
@@ -87,7 +87,6 @@ const getTripsWithMidnightServices = async ({ db, stopId, realtime, query, curre
     const res = await db.queries.getTripsAtStopIdWithNightServices( { stopId, scheduleDate, nextDayDate, scheduleDay, currentTimestampPlusOneHour, wrappedCurrentTimestampMinusNumMinutes, wrappedCurrentTimestampPlusOneHour } )
     const lastStops = await db.queries.getLastStopsOnRoute(res.recordset)
     res.recordset = await utils.removeTripsAtLastStop(lastStops, res.recordset)
-    
     query['response'] = res.recordset
     res.recordset = await realtime.queries.updateResultsWithRealtime(query)
     return query
