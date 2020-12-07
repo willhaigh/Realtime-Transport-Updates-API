@@ -8,7 +8,7 @@ module.exports = {
     register: async server => {
         const config = server.app.config.gtfsr
         // Start realtime plugin with server, config, dayInterval (default value: 60000ms), nightInterval (default value: 180000ms)
-        const client = await realtimeClient(server, config, 60000, 180000)
+        const client = await realtimeClient(server, config)
         server.expose('client', client)
     }
 }

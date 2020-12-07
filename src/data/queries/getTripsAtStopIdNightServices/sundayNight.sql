@@ -14,8 +14,10 @@ SELECT [t].[trip_id]
     , [t].[shape_id]
     , [st].[shape_dist_traveled]
 FROM trips t, stop_times st
-WHERE st.stop_id = @stopId
-AND st.trip_id = t.trip_id
+WHERE [st].[stop_index] = (
+	SELECT stop_index FROM stops WHERE stop_id = @stopId
+)
+AND st.trip_index = t.trip_index
 AND t.service_id IN (
 	SELECT [service_id]
 		FROM calendar
