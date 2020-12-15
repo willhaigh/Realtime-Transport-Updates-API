@@ -1,4 +1,4 @@
-/*  
+/*
   The MIT License (MIT)
 
   Copyright (c) 2012 Brendan Nee <brendan@blinktag.com>
@@ -29,13 +29,13 @@ const unzipper = require('unzipper');
  * Attempt to parse the specified config JSON file.
  */
 exports.getConfig = async config => {
-  try {
-    const parsedConfig = JSON.parse(config);
-    return parsedConfig;
-  } catch (error) {
-    console.error(new Error(`Cannot parse configuration file. Check to ensure that it is valid JSON.`));
-    throw error;
-  }
+	try {
+		const parsedConfig = JSON.parse(config);
+		return parsedConfig;
+	} catch (error) {
+		console.error(new Error('Cannot parse configuration file. Check to ensure that it is valid JSON.'));
+		throw error;
+	}
 };
 
 /*
@@ -43,18 +43,18 @@ exports.getConfig = async config => {
  * everything.
  */
 exports.prepDirectory = async exportPath => {
-  await fs.remove(exportPath);
-  await fs.ensureDir(exportPath);
+	await fs.remove(exportPath);
+	await fs.ensureDir(exportPath);
 };
 
 /*
  * Unzip a zipfile into a specified directory
  */
 exports.unzip = (zipfilePath, exportPath) => {
-  /* eslint-disable new-cap */
-  return fs.createReadStream(zipfilePath)
-    .pipe(unzipper.Extract({ path: exportPath }))
-    .on('entry', entry => entry.autodrain())
-    .promise();
-  /* eslint-enable new-cap */
+	/* eslint-disable new-cap */
+	return fs.createReadStream(zipfilePath)
+		.pipe(unzipper.Extract({ path: exportPath }))
+		.on('entry', entry => entry.autodrain())
+		.promise();
+	/* eslint-enable new-cap */
 };
