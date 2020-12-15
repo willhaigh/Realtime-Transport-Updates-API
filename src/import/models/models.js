@@ -1,4 +1,4 @@
-/*  
+/*
   The MIT License (MIT)
 
   Copyright (c) 2012 Brendan Nee <brendan@blinktag.com>
@@ -21,6 +21,8 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
  */
+
+/* eslint-disable no-unused-vars */
 
 const agency = require('./gtfs/agency');
 const attributions = require('./gtfs/attributions');
@@ -49,13 +51,13 @@ const timetableNotes = require('./non-standard/timetable-notes');
 const timetableNotesReferences = require('./non-standard/timetable-notes-references');
 
 module.exports = [
-  agency, 
-  routes,
-  stops,
-  trips,
-  calendar,
-  calendarDates,
-  transfers,
-  shapes,
-  stopTimes
+	agency,
+	routes,
+	stops,
+	trips,
+	calendar,
+	calendarDates,
+	transfers,
+	shapes,
+	stopTimes
 ];

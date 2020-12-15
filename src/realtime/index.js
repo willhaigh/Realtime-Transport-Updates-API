@@ -1,56 +1,57 @@
-'use-strict'
+'use-strict';
 
-const fs = require('fs')
-const GtfsRealtimeBindings = require('gtfs-realtime-bindings')
-const axios = require('axios').default
+/* eslint-disable no-unused-vars */
+const GtfsRealtimeBindings = require('gtfs-realtime-bindings');
+const axios = require('axios').default;
 
-const queries = require('./queries')
-const { filterFeed, getCurrentTimestamp, getCurrentTime } = require('./utils')
+const queries = require('./queries');
+const { filterFeed, getCurrentTimestamp, getCurrentTime } = require('./utils');
 
 const client = async (server, config, dayServiceInterval = 60000, nightServiceInterval = 180000) => {
-    let feed = null
-    
-    // loops internalCallback with dayServiceInterval as number of milliseconds in day services, nightServiceInterval with number of milliseconds 
-    const start = async (dayServiceInterval, nightServiceInterval) => {
-        let internalCallback = async => {
-            let interval
-            interval = getCurrentTimestamp() < 21600 ? interval = nightServiceInterval : interval = dayServiceInterval
-            sendGetRequest()
-            console.log('Updating realtime feed at ' + getCurrentTime())
-            setTimeout(internalCallback, interval)
-        }
-        internalCallback()
-    }
+	let feed = null;
 
-    const sendGetRequest = async () => {
-        try {
-            const response = await axios({
-                method: 'GET',
-                timeout: 15000,
-                url: config.apiUrl,
-                responseType: 'arraybuffer',
-                headers: {
-                    'x-api-key': config.apiKey
-                }
-            })
-            if (response.status == 200) {
-                feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(response.data)
-                feed = await filterFeed(feed)
-                console.log('Successful GTFS-R response...')
-            }
-        } catch (err) {
-            console.error(err)
-        }
-    }
+	// Loops internalCallback with dayServiceInterval as number of milliseconds in day services, nightServiceInterval with number of milliseconds
+	const start = async (dayServiceInterval, nightServiceInterval) => {
+		const internalCallback = async => {
+			let interval;
+			interval = getCurrentTimestamp() < 21600 ? interval = nightServiceInterval : interval = dayServiceInterval;
+			sendGetRequest();
+			console.log('Updating realtime feed at ' + getCurrentTime());
+			setTimeout(internalCallback, interval);
+		};
 
-    const getFeed = async => feed
+		internalCallback();
+	};
 
-    start(dayServiceInterval, nightServiceInterval)
+	const sendGetRequest = async () => {
+		try {
+			const response = await axios({
+				method: 'GET',
+				timeout: 15000,
+				url: config.apiUrl,
+				responseType: 'arraybuffer',
+				headers: {
+					'x-api-key': config.apiKey
+				}
+			});
+			if (response.status === 200) {
+				feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(response.data);
+				feed = await filterFeed(feed);
+				console.log('Successful GTFS-R response...');
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-    return {
-        start,
-        queries: await queries.register(getFeed)
-    }
-}
+	const getFeed = async => feed;
 
-module.exports = client
+	start(dayServiceInterval, nightServiceInterval);
+
+	return {
+		start,
+		queries: await queries.register(getFeed)
+	};
+};
+
+module.exports = client;
