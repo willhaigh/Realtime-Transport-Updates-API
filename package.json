@@ -6,22 +6,37 @@
   "dependencies": {
     "@hapi/hapi": "^20.0.3",
     "axios": "^0.20.0",
+    "bluebird": "^3.7.2",
+    "chalk": "^4.1.0",
+    "csv-parse": "^4.14.1",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",
     "gtfs-realtime-bindings": "0.0.6",
+    "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "mssql": "^6.2.3",
-    "shelljs": "^0.8.4"
+    "node-fetch": "^2.6.1",
+    "pretty-error": "^2.1.2",
+    "shelljs": "^0.8.4",
+    "sqlstring": "^2.3.2",
+    "strip-bom-stream": "^4.0.0",
+    "tmp-promise": "^3.0.2",
+    "untildify": "^4.0.0",
+    "unzipper": "^0.10.11"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "sinon": "^9.2.1"
+    "sinon": "^9.2.1",
+    "xo": "^0.36.1"
   },
   "scripts": {
-    "test": "nyc mocha src/**/*.test.js"
+    "start": "node .",
+    "prod": "node . prod",
+    "test": "xo && nyc mocha src/**/*.test.js",
+    "import": "node ./src/import/gtfs-import"
   },
   "author": "Matthew O'Leary",
-  "license": "ISC"
+  "license": "MIT"
 }

@@ -9,17 +9,14 @@ const {
     PORT,
     HOST,
     HOST_URL,
-    PORT_TEST,
-    HOST_TEST,
-    HOST_TEST_URL,
     SQL_SERVER,
     SQL_USER,
     SQL_PASSWORD,
     SQL_DATABASE,
-    SQL_TEST_USER,
-    SQL_TEST_PASSWORD,
-    SQL_TEST_SERVER,
-    SQL_TEST_DATABASE,
+    DOCKER_SQL_USER,
+    DOCKER_SQL_PASSWORD,
+    DOCKER_SQL_SERVER,
+    DOCKER_SQL_DATABASE,
     GTFSR_API_KEY,
     GTFSR_API_URL,
     GTFSR_TEST_API_KEY,
@@ -54,7 +51,7 @@ const prod = {
         password: SQL_PASSWORD,
         parseJSON: parseJSON,
         options: {
-            encypt: sqlEncrypt,
+            encrypt: sqlEncrypt,
             enableArithAbort: true
         }
     }
@@ -65,23 +62,34 @@ const test = {
     host: HOST,
     url: HOST_URL,
     gtfsr: {
-        apiKey: GTFSR_API_KEY,
-        apiUrl: GTFSR_API_URL
+        apiKey: GTFSR_TEST_API_KEY,
+        apiUrl: GTFSR_TEST_API_URL
     },
     sql: {
-        server: SQL_TEST_SERVER,
-        database: SQL_TEST_DATABASE,
-        user: SQL_TEST_USER,
-        password: SQL_TEST_PASSWORD,
+        server: DOCKER_SQL_SERVER,
+        database: DOCKER_SQL_DATABASE,
+        user: DOCKER_SQL_USER,
+        password: DOCKER_SQL_PASSWORD,
         parseJSON: parseJSON,
         options: {
-            encypt: sqlEncrypt,
+            encrypt: sqlEncrypt,
             enableArithAbort: true
         }
     }
 }
 
+const dockerDbConfig = {
+    server: DOCKER_SQL_SERVER,
+    database: DOCKER_SQL_DATABASE,
+    user: DOCKER_SQL_USER,
+    password: DOCKER_SQL_PASSWORD,
+    options: {
+        enableArithAbort: true
+    }
+}
+
 module.exports = {
     prod,
-    test
+    test,
+    dockerDbConfig
 }
