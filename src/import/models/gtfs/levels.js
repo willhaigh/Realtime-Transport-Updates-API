@@ -1,4 +1,4 @@
-/*  
+/*
   The MIT License (MIT)
 
   Copyright (c) 2012 Brendan Nee <brendan@blinktag.com>
@@ -23,21 +23,21 @@
  */
 
 module.exports = {
-  filenameBase: 'levels',
-  schema: [
-    {
-      name: 'level_id',
-      type: 'varchar(255)',
-      primary: true
-    },
-    {
-      name: 'level_index',
-      type: 'real',
-      required: true
-    },
-    {
-      name: 'level_name',
-      type: 'varchar(255)'
-    }
-  ]
+	filenameBase: 'levels',
+	schema: [
+		{
+			name: 'level_id',
+			type: 'varchar(255)',
+			primary: true
+		},
+		{
+			name: 'level_index',
+			type: 'real',
+			required: true
+		},
+		{
+			name: 'level_name',
+			type: 'varchar(255)'
+		}
+	]
 };
