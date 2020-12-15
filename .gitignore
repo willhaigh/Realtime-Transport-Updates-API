@@ -8,3 +8,4 @@ unused_files
 Dockerfile
 google_transit_combined
 sample-config.js
+docker-compose.yml

@@ -24,9 +24,9 @@
 
 const logUtils = require('./log-utils');
 const gtfsImport = require('./import');
-const config = require('./config');
-/* eslint-disable unicorn/no-process-exit */
+const { config } = require('./config');
 
+/* eslint-disable unicorn/no-process-exit */
 const handleError = err => {
 	const text = err || 'Unknown Error';
 	process.stdout.write(`\n${logUtils.formatError(text)}\n`);
