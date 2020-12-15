@@ -1,5 +1,5 @@
 const sql = require('mssql');
-const { dockerDbConfig } = require('../config');
+const { dockerDbConfig } = require('./config');
 let pool = null;
 
 exports.connectDb = async () => {

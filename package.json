@@ -35,7 +35,7 @@
     "start": "node .",
     "prod": "node . prod",
     "test": "xo && nyc mocha src/**/*.test.js",
-    "import": "node ./src/import/gtfs-import"
+    "import": "node ./import/gtfs-import"
   },
   "author": "Matthew O'Leary",
   "license": "MIT",
