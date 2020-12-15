@@ -1,4 +1,4 @@
-/*  
+/*
   The MIT License (MIT)
 
   Copyright (c) 2012 Brendan Nee <brendan@blinktag.com>
@@ -24,19 +24,20 @@
 
 const logUtils = require('./log-utils');
 const gtfsImport = require('./import');
-const config = require('./config')
+const config = require('./config');
+/* eslint-disable unicorn/no-process-exit */
 
 const handleError = err => {
-  const text = err || 'Unknown Error';
-  process.stdout.write(`\n${logUtils.formatError(text)}\n`);
-  console.error(err);
-  process.exit(1);
+	const text = err || 'Unknown Error';
+	process.stdout.write(`\n${logUtils.formatError(text)}\n`);
+	console.error(err);
+	process.exit(1);
 };
 
 const setupImport = async () => {
-  await gtfsImport(config);
-  process.exit();
+	await gtfsImport(config);
+	process.exit();
 };
 
 setupImport()
-  .catch(handleError);
+	.catch(handleError);

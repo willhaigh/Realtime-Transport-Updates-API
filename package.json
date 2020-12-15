@@ -38,5 +38,41 @@
     "import": "node ./src/import/gtfs-import"
   },
   "author": "Matthew O'Leary",
-  "license": "MIT"
+  "license": "MIT",
+  "xo": {
+    "rules": {
+      "camelcase": [
+        "error",
+        {
+          "properties": "never"
+        }
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "no-unused-expressions": [
+        "error",
+        {
+          "allowTernary": true
+        }
+      ],
+      "eslint-comments/disable-enable-pair": [
+        "off"
+      ],
+      "unicorn/import-style": [
+        "error",
+        {
+          "styles": {
+            "path": {
+              "named": true
+            }
+          }
+        }
+      ],
+      "unicorn/prevent-abbreviations": [
+        "off"
+      ]
+    }
+  }
 }

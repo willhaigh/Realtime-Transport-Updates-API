@@ -1,15 +1,15 @@
-'use-strict'
+'use-strict';
 
 const loadSqlQueriesResponseMock = {
-    getLastStopOnTrip: 'SELECT TOP(1) trip_id\n' +
+	getLastStopOnTrip: 'SELECT TOP(1) trip_id\n' +
         '\t, stop_id\n' +
         '\t, stop_sequence\n' +
         'FROM stop_times\n' +
         'WHERE trip_index = @trip_index\n' +
         'ORDER BY stop_sequence DESC',
-    getRouteById: 'SELECT * \nFROM [dbo].[routes]\nWHERE [route_id] = @routeId',
-    getStopById: 'SELECT * \nFROM [dbo].[stops] \nWHERE [stop_id] = @stopId',
-    friday: 'SELECT [t].[trip_id]\n' +
+	getRouteById: 'SELECT * \nFROM [dbo].[routes]\nWHERE [route_id] = @routeId',
+	getStopById: 'SELECT * \nFROM [dbo].[stops] \nWHERE [stop_id] = @stopId',
+	friday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -44,7 +44,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    monday: 'SELECT [t].[trip_id]\n' +
+	monday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -79,7 +79,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    saturday: 'SELECT [t].[trip_id]\n' +
+	saturday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -114,7 +114,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    sunday: 'SELECT [t].[trip_id]\n' +
+	sunday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -149,7 +149,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    thursday: 'SELECT [t].[trip_id]\n' +
+	thursday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -184,7 +184,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    tuesday: 'SELECT [t].[trip_id]\n' +
+	tuesday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -219,7 +219,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    wednesday: 'SELECT [t].[trip_id]\n' +
+	wednesday: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -254,7 +254,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    fridayNight: 'SELECT [t].[trip_id]\n' +
+	fridayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -325,7 +325,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    mondayNight: 'SELECT [t].[trip_id]\n' +
+	mondayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -397,7 +397,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    saturdayNight: 'SELECT [t].[trip_id]\n' +
+	saturdayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -468,7 +468,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    sundayNight: 'SELECT [t].[trip_id]\n' +
+	sundayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -540,7 +540,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    thursdayNight: 'SELECT [t].[trip_id]\n' +
+	thursdayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -611,7 +611,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    tuesdayNight: 'SELECT [t].[trip_id]\n' +
+	tuesdayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -682,7 +682,7 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]',
-    wednesdayNight: 'SELECT [t].[trip_id]\n' +
+	wednesdayNight: 'SELECT [t].[trip_id]\n' +
         '    , [t].[trip_index]\n' +
         '    , [t].[trip_headsign]\n' +
         '    , [t].[route_id]\n' +
@@ -753,6 +753,6 @@ const loadSqlQueriesResponseMock = {
         'AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour\n' +
         'AND [st].[pickup_type] = 0\n' +
         'ORDER BY [st].[departure_timestamp]'
-}
+};
 
-module.exports = { loadSqlQueriesResponseMock }
+module.exports = { loadSqlQueriesResponseMock };

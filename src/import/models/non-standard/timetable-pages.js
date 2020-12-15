@@ -1,4 +1,4 @@
-/*  
+/*
   The MIT License (MIT)
 
   Copyright (c) 2012 Brendan Nee <brendan@blinktag.com>
@@ -23,21 +23,21 @@
  */
 
 module.exports = {
-  filenameBase: 'timetable_pages',
-  nonstandard: true,
-  schema: [
-    {
-      name: 'timetable_page_id',
-      type: 'varchar(255)',
-      primary: true
-    },
-    {
-      name: 'timetable_page_label',
-      type: 'varchar(255)'
-    },
-    {
-      name: 'filename',
-      type: 'varchar(255)'
-    }
-  ]
+	filenameBase: 'timetable_pages',
+	nonstandard: true,
+	schema: [
+		{
+			name: 'timetable_page_id',
+			type: 'varchar(255)',
+			primary: true
+		},
+		{
+			name: 'timetable_page_label',
+			type: 'varchar(255)'
+		},
+		{
+			name: 'filename',
+			type: 'varchar(255)'
+		}
+	]
 };

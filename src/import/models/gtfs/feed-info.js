@@ -1,4 +1,4 @@
-/*  
+/*
   The MIT License (MIT)
 
   Copyright (c) 2012 Brendan Nee <brendan@blinktag.com>
@@ -23,51 +23,51 @@
  */
 
 module.exports = {
-  filenameBase: 'feed_info',
-  schema: [
-    {
-      name: 'id',
-      type: 'integer',
-      primary: true
-    },
-    {
-      name: 'feed_publisher_name',
-      type: 'varchar(255)',
-      required: true
-    },
-    {
-      name: 'feed_publisher_url',
-      type: 'varchar(2047)',
-      required: true
-    },
-    {
-      name: 'feed_lang',
-      type: 'varchar(255)',
-      required: true
-    },
-    {
-      name: 'default_lang',
-      type: 'varchar(255)'
-    },
-    {
-      name: 'feed_start_date',
-      type: 'integer'
-    },
-    {
-      name: 'feed_end_date',
-      type: 'integer'
-    },
-    {
-      name: 'feed_version',
-      type: 'varchar(255)'
-    },
-    {
-      name: 'feed_contact_email',
-      type: 'varchar(255)'
-    },
-    {
-      name: 'feed_contact_url',
-      type: 'varchar(2047)'
-    }
-  ]
+	filenameBase: 'feed_info',
+	schema: [
+		{
+			name: 'id',
+			type: 'integer',
+			primary: true
+		},
+		{
+			name: 'feed_publisher_name',
+			type: 'varchar(255)',
+			required: true
+		},
+		{
+			name: 'feed_publisher_url',
+			type: 'varchar(2047)',
+			required: true
+		},
+		{
+			name: 'feed_lang',
+			type: 'varchar(255)',
+			required: true
+		},
+		{
+			name: 'default_lang',
+			type: 'varchar(255)'
+		},
+		{
+			name: 'feed_start_date',
+			type: 'integer'
+		},
+		{
+			name: 'feed_end_date',
+			type: 'integer'
+		},
+		{
+			name: 'feed_version',
+			type: 'varchar(255)'
+		},
+		{
+			name: 'feed_contact_email',
+			type: 'varchar(255)'
+		},
+		{
+			name: 'feed_contact_url',
+			type: 'varchar(2047)'
+		}
+	]
 };
