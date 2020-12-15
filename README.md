@@ -44,7 +44,7 @@ Once you have added your own configuration import the GTFS feed into your Docker
 npm run import
 ```
 
-## Conifguration
+## Configuration
 In `.env` replace the placeholders in the Docker SQL server container and GTFS-R API sections with your own configuration settings.
 
 To use the NTA GTFS-Realtime API you will need to sign up and obtain an API key [here](https://developer.nationaltransport.ie/signup)
@@ -71,19 +71,35 @@ npm run prod
 ## Endpoints
 ### /api/stops/`<stop_id>`
 
+![](./screenshots/stop-by-id.png)
+
 ### /api/routes/`<route_id>`
+
+![](./screenshots/route-by-id.png)
 
 ### /api/trips/`<trip_id>`
 
+![](./screenshots/trip-by-id.png)
+
 ### /api/agencies/`<agency_id>`
+
+![](./screenshots/agency-by-id.png)
 
 ### /api/shapes/`<shape_id>`
 
+![](./screenshots/shapes-by-id.png)
+
 ### /api/transfers/from/`<stop_id>`
 
-### /api/transfers/to/`
+![](./screenshots/transfers-from-id.png)
+
+### /api/transfers/to/`<stop_id>`
+
+![](./screenshots/transfers-to-id.png)
 
 ### /api/tripsAtStop/`<stop_id>`
+
+![](./screenshots/trips-at-stopid.png)
 
 ## Testing
 
