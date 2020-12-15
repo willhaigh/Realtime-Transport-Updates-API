@@ -11,7 +11,6 @@ module.exports.register = async server => {
         handler: async request => {
             try {
                 const db = request.server.plugins.sql.client
-                const realtime = request.server.plugins.realtime.client
                 const stopId = request.params.id
                 const currentTimestamp = utils.getCurrentTimestamp()
                 let query = { queryTimestamp: currentTimestamp }
@@ -44,6 +43,114 @@ module.exports.register = async server => {
 
     server.route({
         method: 'GET',
+        path: '/api/agencies/{id}',
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const agencyId = request.params.id
+                const currentTimestamp = utils.getCurrentTimestamp()
+                let query = { queryTimestamp: currentTimestamp }
+                const res = await db.queries.getAgencyById(agencyId)
+                query['response'] = res.recordset
+                return query
+            } catch(err) {
+                console.log(err) 
+            }
+        }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/api/shapes/{id}',
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const shapeId = request.params.id
+                const currentTimestamp = utils.getCurrentTimestamp()
+                let query = { queryTimestamp: currentTimestamp }
+                const res = await db.queries.getShapeById(shapeId)
+                query['response'] = res.recordset
+                return query
+            } catch(err) {
+                console.log(err) 
+            }
+        }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/api/transfers/from/{id}',
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const stopId = request.params.id
+                const currentTimestamp = utils.getCurrentTimestamp()
+                let query = { queryTimestamp: currentTimestamp }
+                const res = await db.queries.getTransfersFromStopId(stopId)
+                query['response'] = res.recordset
+                return query
+            } catch(err) {
+                console.log(err) 
+            }
+        }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/api/transfers/to/{id}',
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const stopId = request.params.id
+                const currentTimestamp = utils.getCurrentTimestamp()
+                let query = { queryTimestamp: currentTimestamp }
+                const res = await db.queries.getTransfersToStopId(stopId)
+                query['response'] = res.recordset
+                return query
+            } catch(err) {
+                console.log(err) 
+            }
+        }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/api/trips/{id}',
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const tripId = request.params.id
+                const currentTimestamp = utils.getCurrentTimestamp()
+                let query = { queryTimestamp: currentTimestamp }
+                const res = await db.queries.getTripById(tripId)
+                query['response'] = res.recordset
+                return query
+            } catch(err) {
+                console.log(err) 
+            }
+        }
+    })
+
+    server.route({
+        method: 'GET',
+        path: '/api/stopTimes/{id}',
+        handler: async request => {
+            try {
+                const db = request.server.plugins.sql.client
+                const tripId = request.params.id
+                const currentTimestamp = utils.getCurrentTimestamp()
+                let query = { queryTimestamp: currentTimestamp }
+                const res = await db.queries.getStopTimesByTripId(tripId)
+                query['response'] = res.recordset
+                return query
+            } catch(err) {
+                console.log(err)
+            }
+        }
+    })
+
+    server.route({
+        method: 'GET',
         path: '/api/tripsAtStop/{id}',
         handler: async request => {
             try {
@@ -55,6 +162,7 @@ module.exports.register = async server => {
                 const currentTimestampPlusOneHour = utils.getCurrentTimestampPlusOneHour()
                 let query
                 let scheduleDay, scheduleDate
+
                 // If currentTimestampMinusNumMinutes is on or after midnight set schedule day to be day before current day
                 if(await utils.checkIfNightServices(currentTimestampMinusNumMinutes)) {
                     scheduleDay = utils.getWrappedDay().toLowerCase()
@@ -63,6 +171,7 @@ module.exports.register = async server => {
                     scheduleDay = utils.getCurrentDay().toLowerCase()
                     scheduleDate = utils.getCurrentDate()
                 }
+
                 // Check if currentTimesampPlusOneHour is on or after midnight
                 // If true, we get wrapped times and call a getTripsAtStopIdWithNightServices query instead
                 // If false call getTripsAtStopId as normal

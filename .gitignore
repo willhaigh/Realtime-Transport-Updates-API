@@ -5,3 +5,6 @@ docker-test-db
 GTFSR_Outputs
 unused_files
 .env
+Dockerfile
+google_transit_combined
+sample-config.js
