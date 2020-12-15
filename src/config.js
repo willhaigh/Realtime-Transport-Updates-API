@@ -78,18 +78,7 @@ const test = {
 	}
 };
 
-const dockerDbConfig = {
-	server: DOCKER_SQL_SERVER,
-	database: DOCKER_SQL_DATABASE,
-	user: DOCKER_SQL_USER,
-	password: DOCKER_SQL_PASSWORD,
-	options: {
-		enableArithAbort: true
-	}
-};
-
 module.exports = {
 	prod,
-	test,
-	dockerDbConfig
+	test
 };
