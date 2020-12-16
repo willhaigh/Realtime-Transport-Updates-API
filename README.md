@@ -18,7 +18,7 @@ The application downloads a GTFS feed and writes it to a [Microsoft SQL Server D
 In `docker-compose.yml` provide a password for the database:
 
 ```
-SA_PASSWORD: 'YOUR_PASSWORD_HERE'
+SA_PASSWORD: '<YourNewStrong@Passw0rd>'
 ```
 
 In the project root directory run the docker-compose file which downloads the image and runs the container:
@@ -26,13 +26,38 @@ In the project root directory run the docker-compose file which downloads the im
 ```
 docker-compose up -d
 ```
+#### Connect to the SQL server
+
+Use the `docker exec -it` command to start an interactive bash shell inside your running container.
+
+```
+docker exec -it docker-gtfs-db "bash"
+```
+Once inside the container, connect locally with [sqlcmd](https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility?view=sql-server-ver15). Sqlcmd is not in the path by default, so you have to specify the full path and enter your own password:
+
+```
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "<YourNewStrong@Passw0rd>"
+```
+
+#### Create a new database
+Create a new database using the following Transact-SQL command:
+
+```sql
+CREATE DATABASE gtfsdb
+```
+Type `GO` on a new line to execute the previous command:
+
+```sql
+GO
+```
+
 #### Download and write the GTFS feed to your Docker container
 Replace the below section of `.env` with your own configuration:
 
 ```
 # Docker SQL server container
 DOCKER_SQL_USER=sa
-DOCKER_SQL_PASSWORD=YOUR_PASSWORD_HERE
+DOCKER_SQL_PASSWORD=YourNewStrong@Passw0rd
 DOCKER_SQL_SERVER=localhost
 DOCKER_SQL_DATABASE=gtfsdb
 ```
@@ -44,7 +69,7 @@ Once you have added your own configuration import the GTFS feed into your Docker
 npm run import
 ```
 
-## Conifguration
+## Configuration
 In `.env` replace the placeholders in the Docker SQL server container and GTFS-R API sections with your own configuration settings.
 
 To use the NTA GTFS-Realtime API you will need to sign up and obtain an API key [here](https://developer.nationaltransport.ie/signup)
@@ -87,9 +112,13 @@ The below screenshots show sample query responses providing results from the GTF
 
 ![](./screenshots/stop-by-id.png)
 
+![](./screenshots/stop-by-id.png)
+
 ### /api/routes/`<route_id>`
 - `since_midnight_timestamp`: Timestamp of the query as the number of seconds elapsed since midnight.
 - `query_timestamp`: Unix timestamp at the time of the query
+
+![](./screenshots/route-by-id.png)
 
 ![](./screenshots/route-by-id.png)
 
@@ -111,6 +140,12 @@ The below screenshots show sample query responses providing results from the GTF
 
 ![](./screenshots/shapes-by-id.png)
 
+![](./screenshots/shapes-by-id.png)
+
+### /api/agencies/`<agency_id>`
+
+![](./screenshots/agency-by-id.png)
+
 ### /api/transfers/from/`<stop_id>`
 - `since_midnight_timestamp`: Timestamp of the query as the number of seconds elapsed since midnight.
 - `query_timestamp`: Unix timestamp at the time of the query
@@ -128,6 +163,8 @@ The below screenshots show sample query responses providing results from the GTF
 - `query_timestamp`: Unix timestamp at the time of the query
 
 ![](./screenshots/stop-by-id.png)
+
+![](./screenshots/trips-at-stopid.png)
 
 ## Testing
 
