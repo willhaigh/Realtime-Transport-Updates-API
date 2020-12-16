@@ -1,11 +1,9 @@
 node_modules
-google_transit_dublinbus
 docker-test-db
 .nyc_output
 GTFSR_Outputs
 unused_files
 .env
 Dockerfile
-google_transit_combined
 sample-config.js
 docker-compose.yml
