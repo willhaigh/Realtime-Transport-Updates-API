@@ -1,4 +1,5 @@
 'use-strict';
+const { unix } = require('moment');
 const utils = require('../utils');
 
 // Takes a server as an argument and uses that server to register a route
@@ -12,7 +13,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getStopById(stopId);
 				query.response = response.recordset;
 				return query; // Returns automatically as JSON
@@ -30,7 +35,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const routeId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getRouteById(routeId);
 				query.response = response.recordset;
 				return query;
@@ -48,7 +57,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const agencyId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getAgencyById(agencyId);
 				query.response = response.recordset;
 				return query;
@@ -66,7 +79,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const shapeId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getShapeById(shapeId);
 				query.response = response.recordset;
 				return query;
@@ -84,7 +101,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getTransfersFromStopId(stopId);
 				query.response = response.recordset;
 				return query;
@@ -102,7 +123,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getTransfersToStopId(stopId);
 				query.response = response.recordset;
 				return query;
@@ -120,7 +145,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const tripId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getTripById(tripId);
 				query.response = response.recordset;
 				return query;
@@ -138,7 +167,11 @@ module.exports.register = async server => {
 				const db = request.server.plugins.sql.client;
 				const tripId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
-				const query = { queryTimestamp: currentTimestamp };
+				const unixTimestamp = utils.getUnixTimestamp();
+				const query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				const response = await db.queries.getStopTimesByTripId(tripId);
 				query.response = response.recordset;
 				return query;
@@ -157,6 +190,7 @@ module.exports.register = async server => {
 				const realtime = request.server.plugins.realtime.client;
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
+				const unixTimestamp = utils.getUnixTimestamp();
 				const currentTimestampMinusNumMinutes = await utils.getTimestampMinusNumMinutes(currentTimestamp, 10); // Num minutes set to 10
 				const currentTimestampPlusOneHour = utils.getCurrentTimestampPlusOneHour();
 				let query;
@@ -176,11 +210,17 @@ module.exports.register = async server => {
 				// If true, we get wrapped times and call a getTripsAtStopIdWithNightServices query instead
 				// If false call getTripsAtStopId as normal
 				if (await utils.checkIfNightServices(currentTimestampPlusOneHour)) {
-					query = { query_timestamp: await utils.getWrappedTimestamp(currentTimestamp) };
+					query = {
+						since_midnight_timestamp: await utils.getWrappedTimestamp(currentTimestamp),
+						query_timestamp: unixTimestamp
+					};
 					return await getTripsWithMidnightServices({ db, stopId, realtime, query, currentTimestampMinusNumMinutes, currentTimestampPlusOneHour, scheduleDate, scheduleDay });
 				}
 
-				query = { query_timestamp: currentTimestamp };
+				query = { 
+					since_midnight_timestamp: currentTimestamp,
+					query_timestamp: unixTimestamp
+				};
 				return await getTrips({ db, stopId, realtime, query, currentTimestampMinusNumMinutes, currentTimestampPlusOneHour, scheduleDate, scheduleDay });
 			} catch (error) {
 				console.log(error);
