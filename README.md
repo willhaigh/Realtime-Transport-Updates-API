@@ -106,13 +106,13 @@ npm run prod
 
 ![](./screenshots/trip-by-id.png)
 
-### /api/agencies/`<agency_id>`
-
-![](./screenshots/agency-by-id.png)
-
 ### /api/shapes/`<shape_id>`
 
 ![](./screenshots/shapes-by-id.png)
+
+### /api/agencies/`<agency_id>`
+
+![](./screenshots/agency-by-id.png)
 
 ### /api/transfers/from/`<stop_id>`
 
