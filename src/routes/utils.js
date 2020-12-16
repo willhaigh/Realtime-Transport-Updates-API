@@ -12,6 +12,10 @@ const getCurrentTimestamp = async => {
 	return time;
 };
 
+const getUnixTimestamp = async => {
+	return moment().unix();
+}
+
 const getTimestampMinusNumberMinutes = async (timestamp, numberMinutes) => {
 	const numberSeconds = numberMinutes * 60;
 	return timestamp - numberSeconds;
@@ -24,8 +28,7 @@ const getCurrentTimestampPlusOneHour = async => {
 };
 
 const getCurrentDate = async => {
-	const date = moment().format('YYYYMMDD');
-	return date;
+	return moment().format('YYYYMMDD');
 };
 
 const getCurrentDay = async => {
@@ -85,6 +88,7 @@ module.exports = {
 	getCurrentTimestampPlusOneHour,
 	getTimestampMinusNumMinutes: getTimestampMinusNumberMinutes,
 	getWrappedTimestamp,
+	getUnixTimestamp,
 	getCurrentDate,
 	getWrappedDate,
 	getNextDayDate,
