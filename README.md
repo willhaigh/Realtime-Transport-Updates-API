@@ -112,13 +112,9 @@ The below screenshots show sample query responses providing results from the GTF
 
 ![](./screenshots/stop-by-id.png)
 
-![](./screenshots/stop-by-id.png)
-
 ### /api/routes/`<route_id>`
 - `since_midnight_timestamp`: Timestamp of the query as the number of seconds elapsed since midnight.
 - `query_timestamp`: Unix timestamp at the time of the query
-
-![](./screenshots/route-by-id.png)
 
 ![](./screenshots/route-by-id.png)
 
@@ -140,12 +136,6 @@ The below screenshots show sample query responses providing results from the GTF
 
 ![](./screenshots/shapes-by-id.png)
 
-![](./screenshots/shapes-by-id.png)
-
-### /api/agencies/`<agency_id>`
-
-![](./screenshots/agency-by-id.png)
-
 ### /api/transfers/from/`<stop_id>`
 - `since_midnight_timestamp`: Timestamp of the query as the number of seconds elapsed since midnight.
 - `query_timestamp`: Unix timestamp at the time of the query
@@ -157,14 +147,6 @@ The below screenshots show sample query responses providing results from the GTF
 - `query_timestamp`: Unix timestamp at the time of the query
 
 ![](./screenshots/transfers-to-id.png)
-
-### /api/tripsAtStop/`<stop_id>`
-- `since_midnight_timestamp`: Timestamp of the query as the number of seconds elapsed since midnight.
-- `query_timestamp`: Unix timestamp at the time of the query
-
-![](./screenshots/stop-by-id.png)
-
-![](./screenshots/trips-at-stopid.png)
 
 ## Testing
 
