@@ -1,5 +1,4 @@
 'use-strict';
-const { unix } = require('moment');
 const utils = require('../utils');
 
 // Takes a server as an argument and uses that server to register a route
@@ -14,7 +13,7 @@ module.exports.register = async server => {
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -36,7 +35,7 @@ module.exports.register = async server => {
 				const routeId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -58,7 +57,7 @@ module.exports.register = async server => {
 				const agencyId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -80,7 +79,7 @@ module.exports.register = async server => {
 				const shapeId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -102,7 +101,7 @@ module.exports.register = async server => {
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -124,7 +123,7 @@ module.exports.register = async server => {
 				const stopId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -146,7 +145,7 @@ module.exports.register = async server => {
 				const tripId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -168,7 +167,7 @@ module.exports.register = async server => {
 				const tripId = request.params.id;
 				const currentTimestamp = utils.getCurrentTimestamp();
 				const unixTimestamp = utils.getUnixTimestamp();
-				const query = { 
+				const query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -217,7 +216,7 @@ module.exports.register = async server => {
 					return await getTripsWithMidnightServices({ db, stopId, realtime, query, currentTimestampMinusNumMinutes, currentTimestampPlusOneHour, scheduleDate, scheduleDay });
 				}
 
-				query = { 
+				query = {
 					since_midnight_timestamp: currentTimestamp,
 					query_timestamp: unixTimestamp
 				};
@@ -234,7 +233,7 @@ const getTripsWithMidnightServices = async ({ db, stopId, realtime, query, curre
 	const wrappedCurrentTimestampPlusOneHour = await utils.getWrappedTimestamp(currentTimestampPlusOneHour);
 	const nextDayDate = await utils.checkIfNightServices(currentTimestampMinusNumMinutes) ? utils.getCurrentDate() : utils.getNextDayDate();
 	const response = await db.queries.getTripsAtStopIdWithNightServices({ stopId, scheduleDate, nextDayDate, scheduleDay, currentTimestampPlusOneHour, wrappedCurrentTimestampMinusNumMinutes, wrappedCurrentTimestampPlusOneHour });
-	const lastStops = await db.queries.getLastStopsOnRoute(response.recordset);
+	const lastStops = await db.queries.getLastStops(response.recordset);
 	response.recordset = await utils.removeTripsAtLastStop(lastStops, response.recordset);
 	query.response = response.recordset;
 	response.recordset = await realtime.queries.updateResultsWithRealtime(query);
@@ -243,7 +242,7 @@ const getTripsWithMidnightServices = async ({ db, stopId, realtime, query, curre
 
 const getTrips = async ({ db, stopId, realtime, query, currentTimestampMinusNumMinutes, currentTimestampPlusOneHour, scheduleDate, scheduleDay }) => {
 	const response = await db.queries.getTripsAtStopId({ stopId, scheduleDate, scheduleDay, currentTimestampMinusNumMinutes, currentTimestampPlusOneHour });
-	const lastStops = await db.queries.getLastStopsOnRoute(response.recordset);
+	const lastStops = await db.queries.getLastStops(response.recordset);
 	response.recordset = await utils.removeTripsAtLastStop(lastStops, response.recordset);
 	query.response = response.recordset;
 	response.recordset = await realtime.queries.updateResultsWithRealtime(query);

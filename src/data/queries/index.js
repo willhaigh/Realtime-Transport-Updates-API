@@ -55,7 +55,7 @@ const register = async ({ sql, getConnection }) => {
 		return request.query(sqlQueries.getTripById);
 	};
 
-	const getLastStopsOnRoute = async trips => {
+	const getLastStops = async trips => {
 		const cnx = await getConnection();
 		const results = [];
 		if (trips) {
@@ -103,7 +103,7 @@ const register = async ({ sql, getConnection }) => {
 
 	return {
 		getAgencyById,
-		getLastStopsOnRoute,
+		getLastStops,
 		getRouteById,
 		getShapeById,
 		getStopById,
