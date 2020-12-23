@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 // Mocha API
 const { describe, it } = require('mocha');
 // Assertions module - chai
@@ -13,10 +14,10 @@ describe('Data Utils functions:', () => {
 	describe('loadSqlQueries', () => {
 		const { loadSqlQueries } = utils;
 		const { loadSqlQueriesResponseMock } = require('./mocks');
-		describe('when I call loadSqlQueries with folderName queries', async () => {
-			const sqlQueries = await loadSqlQueries('queries');
-			it('should return a queries object with each query and its corresponding SQL query', () => {
-				assert.equal(sqlQueries, loadSqlQueriesResponseMock);
+		describe('when I call loadSqlQueries with folderName queries', () => {
+			it('should return a queries object with each query and its corresponding SQL query', async () => {
+				const sqlQueries = await loadSqlQueries('queries');
+				assert.deepEqual(sqlQueries, loadSqlQueriesResponseMock);
 			});
 		});
 	});
@@ -24,9 +25,9 @@ describe('Data Utils functions:', () => {
 	describe('is_dir', () => {
 		const { _testIsDir } = utils;
 		const { join } = require('path');
-		describe('when I call is_dir with folderName queries', async () => {
-			const path = join(process.cwd(), 'src', 'data', 'queries');
+		describe('when I call is_dir with folderName queries', () => {
 			it('should return true', () => {
+				const path = join(process.cwd(), 'src', 'data', 'queries');
 				assert.isTrue(_testIsDir(path));
 			});
 		});
@@ -35,9 +36,9 @@ describe('Data Utils functions:', () => {
 	describe('is_dir', () => {
 		const { _testIsDir } = utils;
 		const { join } = require('path');
-		describe('when I call is_dir with folderName hello', async () => {
-			const path = join(process.cwd(), 'src', 'data', 'hello');
+		describe('when I call is_dir with folderName hello', () => {
 			it('should return false', () => {
+				const path = join(process.cwd(), 'src', 'data', 'hello');
 				assert.isFalse(_testIsDir(path));
 			});
 		});

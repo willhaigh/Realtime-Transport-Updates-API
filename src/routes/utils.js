@@ -14,7 +14,7 @@ const getCurrentTimestamp = async => {
 
 const getUnixTimestamp = async => {
 	return moment().unix();
-}
+};
 
 const getTimestampMinusNumberMinutes = async (timestamp, numberMinutes) => {
 	const numberSeconds = numberMinutes * 60;
