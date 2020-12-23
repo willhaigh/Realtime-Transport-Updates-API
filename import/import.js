@@ -218,7 +218,7 @@ const formatLine = (line, model, totalLineCount) => {
 	return line;
 };
 
-/* eslint-disable no-eq-null, eqeqeq */
+/* eslint-disable no-eq-null, eqeqeq, unicorn/no-for-loop, no-negated-condition */
 const importLines = async (task, lines, model, totalLineCount) => {
 	if (lines.length === 0) {
 		return;
@@ -235,12 +235,19 @@ const importLines = async (task, lines, model, totalLineCount) => {
 	while (lines.length) {
 		const line = lines.pop();
 		const valueList = [];
-		for (const fieldName of fieldNames) {
-			if (line[fieldName] != null) {
-				// Replace single quotes within strings with double single quotes to prevent sql error
-				value = line[fieldName].toString();
-				value = value.replaceAll('\'', '\'\'');
-				valueList.push('\'' + value + '\'');
+		for (let i = 0; i < fieldNames.length; i++) {
+			const fieldName = fieldNames[i];
+			// If column is not an identity column, and value of line[fieldName] is undefined, insert null
+			if (!(model.schema[i].identity)) {
+				if (line[fieldName] != null) {
+					// Replace single quotes within strings with double single quotes to prevent sql error
+					value = line[fieldName].toString();
+					value = value.replaceAll('\'', '\'\'');
+					valueList.push('\'' + value + '\'');
+				} else {
+					valueList.push('NULL');
+				}
+
 				if (!fieldNamesInUse.includes(fieldName)) {
 					fieldNamesInUse.push(fieldName);
 				}

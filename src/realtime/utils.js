@@ -43,6 +43,15 @@ const getTimestampAsTimeFormatted = async timestamp => {
 	return time.join(':');
 };
 
+const getWrappedTimeStampUnwrapped = async timestamp => {
+	// If timestamp is not a wrapped timestamp, return the timestamp without change
+	if (timestamp < 86400) {
+		return timestamp;
+	}
+
+	return timestamp - 86400; // Timestamp - 24 hours in seconds
+};
+
 // Get seconds since midnight
 const getCurrentTimestamp = async => {
 	let time = moment().format('LTS').split(':');
@@ -59,6 +68,7 @@ module.exports = {
 	filterFeed,
 	getDueInValue,
 	getTimestampAsTimeFormatted,
+	getWrappedTimeStampUnwrapped,
 	getCurrentTimestamp,
 	getCurrentTime
 };
