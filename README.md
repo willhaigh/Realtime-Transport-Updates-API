@@ -177,7 +177,7 @@ And running the following command:
 docker-compose up -d
 ```
 
-Note: After setup, the `SA_PASSWORD` environment variable has the above default value `YourStrong@Passw0rd`. **It is strongly recommended you change this password by following the guide to do so provided by Mircosoft [here](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash#sapassword****).**
+Note: After setup, the `SA_PASSWORD` environment variable has the above default value `YourStrong@Passw0rd`. **It is strongly recommended you change this password by following the guide to do so provided by Microsoft [here](https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15&pivots=cs1-bash#sapassword****).**
 
 The below example replaces the old password `YourStrong@Passw0rd`, with your own password value replacing the placeholder `<YourNewStrong@Passw0rd>`.
 
