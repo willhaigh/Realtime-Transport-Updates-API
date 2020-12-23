@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use-strict';
 
 const dotenv = require('dotenv');
@@ -24,15 +25,14 @@ const {
 } = process.env;
 
 const sqlEncrypt = process.env.SQL_ENCRYPT === 'true';
-const parseJSON = process.env.PARSE_JSON === 'true';
 
 assert(PORT, 'PORT is required');
 assert(HOST, 'HOST is required');
 assert(HOST_URL, 'HOST_URL is required');
-assert(SQL_SERVER, 'SQL_SERVER is required');
-assert(SQL_USER, 'SQL_USER is required');
-assert(SQL_PASSWORD, 'SQL_PASSWORD is required');
-assert(SQL_DATABASE, 'SQL_DATABASE is required');
+assert(DOCKER_SQL_SERVER, 'SQL_SERVER is required');
+assert(DOCKER_SQL_USER, 'SQL_USER is required');
+assert(DOCKER_SQL_PASSWORD, 'SQL_PASSWORD is required');
+assert(DOCKER_SQL_DATABASE, 'SQL_DATABASE is required');
 assert(GTFSR_API_KEY, 'GTFSR_API_KEY is required');
 assert(GTFSR_API_URL, 'GTFSR_API_URL is required');
 

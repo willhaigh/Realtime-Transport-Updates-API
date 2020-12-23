@@ -1,10 +1,10 @@
 'use-strict';
 const fs = require('fs');
-const { path } = require('path');
+const path = require('path');
 
-const getMockRealtimeFeed = async () => {
-	fs.readFile(path.join(process.cwd(), './GTFSR-Output-12.json'), 'utf8', (err, data) => {
-		return JSON.parse(data);
+const getMockRealtimeFeed = async callback => {
+	fs.readFile(path.join(__dirname, 'GTFSR-Output-12.json'), 'utf8', (err, data) => {
+		callback(null, JSON.parse(data));
 	});
 };
 
@@ -117,6 +117,123 @@ const stopTimeUpdatesNearestStopDelayMocks = {
 	}
 };
 
+const stopTimeUpdatesNearestStopDelayMocks2 = {
+	id: '18.2.60-151-d12-1.90.I',
+	tripUpdate: {
+		trip: {
+			tripId: '18.2.60-151-d12-1.90.I',
+			startTime: '11:40:00',
+			startDate: '20201130',
+			scheduleRelationship: 'SCHEDULED',
+			routeId: '60-151-d12-1'
+		},
+		stopTimeUpdate: [
+			{
+				stopSequence: 1,
+				departure: {
+					delay: 0
+				},
+				stopId: '8230DB004606',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 21,
+				arrival: {
+					delay: 300
+				},
+				departure: {
+					delay: 300
+				},
+				stopId: '8220DB006142',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 23,
+				arrival: {
+					delay: 360
+				},
+				departure: {
+					delay: 360
+				},
+				stopId: '8220DB002182',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 26,
+				arrival: {
+					delay: 300
+				},
+				departure: {
+					delay: 300
+				},
+				stopId: '8220DB007043',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 29,
+				arrival: {
+					delay: 360
+				},
+				departure: {
+					delay: 360
+				},
+				stopId: '8220DB002187',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 30,
+				arrival: {
+					delay: 300
+				},
+				departure: {
+					delay: 300
+				},
+				stopId: '8220DB002188',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 34,
+				stopId: '8220DB002190',
+				scheduleRelationship: 'SCHEDULED'
+			}
+		]
+	}
+};
+
+const stopTimeUpdatesNearestStopDelayMocksNoUpdates = {
+	id: '18.2.60-151-d12-1.90.I',
+	tripUpdate: {
+		trip: {
+			tripId: '18.2.60-151-d12-1.90.I',
+			startTime: '11:40:00',
+			startDate: '20201130',
+			scheduleRelationship: 'SCHEDULED',
+			routeId: '60-151-d12-1'
+		},
+		stopTimeUpdate: [
+			{
+				stopSequence: 44,
+				departure: {
+					delay: 0
+				},
+				stopId: '8230DB004606',
+				scheduleRelationship: 'SCHEDULED'
+			},
+			{
+				stopSequence: 45,
+				arrival: {
+					delay: 360
+				},
+				departure: {
+					delay: 360
+				},
+				stopId: '8220DB002190',
+				scheduleRelationship: 'SCHEDULED'
+			}
+		]
+	}
+};
+
 const mockNearestStopDelayResponseFor151 = {
 	trip_id: '18.2.60-151-d12-1.90.I',
 	trip_index: 26611,
@@ -137,4 +254,4 @@ const mockNearestStopDelayResponseFor151 = {
 	isRealtime: true
 };
 
-module.exports = { getMockRealtimeFeed, elementForNearestStopDelayMock, stopTimeUpdatesNearestStopDelayMocks, mockNearestStopDelayResponseFor151 };
+module.exports = { getMockRealtimeFeed, elementForNearestStopDelayMock, stopTimeUpdatesNearestStopDelayMocks, stopTimeUpdatesNearestStopDelayMocks2, stopTimeUpdatesNearestStopDelayMocksNoUpdates, mockNearestStopDelayResponseFor151 };

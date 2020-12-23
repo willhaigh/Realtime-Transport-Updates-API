@@ -2,7 +2,7 @@
 
 const utils = require('../utils');
 
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop, max-depth */
 const register = async getFeed => {
 	const updateResultsWithRealtime = async query => {
 		const feed = await getFeed();
@@ -12,6 +12,7 @@ const register = async getFeed => {
 				const secondsSinceMidnightTimestamp = query.since_midnight_timestamp;
 				for (let element of query.response) {
 					const feedEntity = feed.entity.find(object => object.id === element.trip_id);
+
 					if (feedEntity) {
 						if (element.scheduleRelationship !== 3) {
 							element.is_realtime = true;
@@ -26,6 +27,8 @@ const register = async getFeed => {
 
 					const departureTimestamp = element.departure_timestamp;
 					const arrivalTimestamp = element.arrival_timestamp;
+
+					// If departure/arrival timestamp is before the time we made the query, set arrived to be true, arrived trips will be filtered out
 					if (departureTimestamp) {
 						if (departureTimestamp < secondsSinceMidnightTimestamp) {
 							element.arrived = true;
@@ -41,9 +44,20 @@ const register = async getFeed => {
 					} else {
 						console.log('Error, no departure or arrival timestamp available...');
 					}
+
+					// Convert any wrapped times and timestamps to normal times e.g convert 25:30:00 to 01:30:00
+					if (departureTimestamp >= 86400) {
+						element.departure_timestamp = await utils.getWrappedTimeStampUnwrapped(departureTimestamp);
+						element.departure_time = await utils.getTimestampAsTimeFormatted(departureTimestamp);
+					}
+
+					if (arrivalTimestamp >= 86400) {
+						element.arrival_timestamp = await utils.getWrappedTimeStampUnwrapped(arrivalTimestamp);
+						element.arrival_time = await utils.getTimestampAsTimeFormatted(arrivalTimestamp);
+					}
 				}
-			} catch (error) {
-				console.log('No realtime feed available...')
+			} catch {
+				console.log('No realtime feed available...');
 			}
 		}
 
