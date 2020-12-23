@@ -47,13 +47,15 @@ const register = async getFeed => {
 
 					// Convert any wrapped times and timestamps to normal times e.g convert 25:30:00 to 01:30:00
 					if (departureTimestamp >= 86400) {
-						element.departure_timestamp = await utils.getWrappedTimeStampUnwrapped(departureTimestamp);
-						element.departure_time = await utils.getTimestampAsTimeFormatted(departureTimestamp);
+						const unWrappedTimestamp = await utils.getWrappedTimeStampUnwrapped(departureTimestamp);
+						element.departure_timestamp = unWrappedTimestamp;
+						element.departure_time = await utils.getTimestampAsTimeFormatted(unWrappedTimestamp);
 					}
 
 					if (arrivalTimestamp >= 86400) {
-						element.arrival_timestamp = await utils.getWrappedTimeStampUnwrapped(arrivalTimestamp);
-						element.arrival_time = await utils.getTimestampAsTimeFormatted(arrivalTimestamp);
+						const unWrappedTimestamp = await utils.getWrappedTimeStampUnwrapped(arrivalTimestamp);
+						element.arrival_timestamp = arrivalTimestamp;
+						element.arrival_time = await utils.getTimestampAsTimeFormatted(unWrappedTimestamp);
 					}
 				}
 			} catch {
