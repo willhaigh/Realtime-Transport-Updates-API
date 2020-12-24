@@ -31,7 +31,7 @@ AND [t].[service_id] IN (
     SELECT [service_id] FROM calendar_dates
     WHERE [date] = @currentDate AND [exception_type] = 2
 )
-AND [st].[departure_timestamp] >= @currentTimestamp
+AND [st].[departure_timestamp] >= @currentTimestampMinusNumMinutes
 AND [st].[departure_timestamp] <= @currentTimestampPlusOneHour
 AND [st].[pickup_type] = 0
 ORDER BY [st].[departure_timestamp]

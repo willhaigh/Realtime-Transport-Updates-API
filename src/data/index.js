@@ -1,41 +1,44 @@
-'use strict'
+'use strict';
 
-const queries = require('./queries')
-const sql = require('mssql')
+const queries = require('./queries');
+const sql = require('mssql');
 
 const client = async (server, config) => {
-    let pool = null
+	let pool = null;
 
-    const closePool = async () => {
-        try {
-            await pool.close()
-            pool = null
-        } catch (err) {
-            pool = null
-            console.log(err)
-        }
-    }
+	const getConnection = async () => {
+		try {
+			if (pool) {
+				return pool;
+			}
 
-    const getConnection = async () => {
-        try {
-            if (pool) {
-                return pool
-            }
-            pool = await sql.connect(config)
-            pool.on('error', async err => {
-                console.log(err)
-                await closePool()
-            })
-            return pool
-        } catch (err) {
-            console.log(err)
-            pool = null
-        }
-    }
+			pool = await sql.connect(config);
+			pool.on('error', async error => {
+				await closePool();
+				throw error;
+			});
+			return pool;
+		} catch (error) {
+			pool = null;
+			throw error;
+		}
+	};
 
-    return {
-        queries: await queries.register({sql, getConnection})
-    }
-}
+	const closePool = async () => {
+		try {
+			await pool.close();
+			pool = null;
+		} catch (error) {
+			pool = null;
+			throw error;
+		}
+	};
 
-module.exports = client
+	return {
+		queries: await queries.register({ sql, getConnection }),
+		getConnection,
+		closePool
+	};
+};
+
+module.exports = client;
