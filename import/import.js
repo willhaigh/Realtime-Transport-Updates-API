@@ -46,11 +46,12 @@ const downloadFiles = async task => {
 	task.log(`Downloading GTFS from ${task.agency_url}`);
 
 	task.path = `${task.downloadDir}/${task.agency_key}-gtfs.zip`;
-
-	const response = await fetch(task.agency_url, { method: 'GET', headers: task.agency_headers || {} });
+	const response = await fetch(task.agency_url, { method: 'GET', headers: {
+		Authorization: 'apikey mKWsMvn3oIiw4TvaQg8ug4IHKOZ7MyJ0zILl'
+	  }|| {} });
 
 	if (response.status !== 200) {
-		throw new Error('Couldn’t download files');
+		throw new Error('Couldn’t download files' + response.status );
 	}
 
 	const buffer = await response.buffer();
@@ -242,7 +243,9 @@ const importLines = async (task, lines, model, totalLineCount) => {
 				if (line[fieldName] != null) {
 					// Replace single quotes within strings with double single quotes to prevent sql error
 					value = line[fieldName].toString();
+					//value = value.replaceAll(/'/g, '"');
 					value = value.replaceAll('\'', '\'\'');
+					
 					valueList.push('\'' + value + '\'');
 				} else {
 					valueList.push('NULL');
@@ -253,7 +256,6 @@ const importLines = async (task, lines, model, totalLineCount) => {
 				}
 			}
 		}
-
 		values.push(valueList);
 	}
 
@@ -263,12 +265,13 @@ const importLines = async (task, lines, model, totalLineCount) => {
 		const formattedValue = '(' + value.join(', ') + ')';
 		formattedValues.push(formattedValue);
 	}
-
 	try {
 		await request.query(`INSERT INTO ${model.filenameBase}(${fieldNamesInUse.join(', ')}) VALUES ${formattedValues.join(',')};`);
+
 	} catch (error) {
+
 		task.warn(`Check ${model.filenameBase}.txt for invalid data between lines ${totalLineCount - linesToImportCount} and ${totalLineCount}.`);
-		throw error;
+		//throw error;
 	}
 
 	task.log(`Importing - ${model.filenameBase}.txt - ${totalLineCount} lines imported\r`, true);
@@ -415,11 +418,12 @@ module.exports = async config => {
 			},
 			error: message => {
 				logError(message);
-			}
+			},
 		};
 
 		if (task.agency_url) {
 			await downloadFiles(task);
+			
 		}
 
 		await readFiles(task);

@@ -31,12 +31,12 @@ const client = async (server, config, dayServiceInterval = 60000, nightServiceIn
 				url: config.apiUrl,
 				responseType: 'arraybuffer',
 				headers: {
-					'x-api-key': config.apiKey
+					'Authorization': config.apiKey
 				}
 			});
 			if (response.status === 200) {
 				feed = GtfsRealtimeBindings.transit_realtime.FeedMessage.decode(response.data);
-				feed = await filterFeed(feed);
+				//feed = await filterFeed(feed);
 				console.log('Successful GTFS-R response...');
 			}
 		} catch (error) {

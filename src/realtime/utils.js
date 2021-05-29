@@ -2,8 +2,8 @@
 
 /* eslint-disable import/no-unassigned-import, no-unused-vars */
 const moment = require('moment');
-require('moment/locale/en-ie');
-moment.locale('en-ie');
+require('moment/locale/en-au');
+moment.locale('en-au');
 
 /* eslint-disable no-await-in-loop */
 const findNearestStopDelay = async (element, stopTimeUpdates) => {
@@ -24,6 +24,7 @@ const findNearestStopDelay = async (element, stopTimeUpdates) => {
 
 const filterFeed = async feed => {
 	feed.entity = feed.entity.filter(feedEntity => {
+		console.log(feedEntity.id);
 		return feedEntity.id.includes('b12') ||
         feedEntity.id.includes('d12');
 	});
